@@ -1,0 +1,37 @@
+target_sources(frontend
+    PRIVATE
+        Frontend.cc
+        ScreenManager.cc
+        screens/Screen.cc
+        screens/watchfaces/Watchface.cc
+        screens/watchfaces/UtilityWatchface.cc
+        screens/watchfaces/InfographWatchface.cc
+        screens/settings/SettingsScreen.cc
+        screens/settings/BrightnessScreen.cc
+        screens/settings/WakeUpModeScreen.cc
+        screens/settings/StepsGoalScreen.cc
+        screens/settings/SystemInfoScreen.cc
+        screens/settings/FirmwareValidationScreen.cc
+        screens/FirmwareUpdateScreen.cc
+        fonts/font_dvs_ascii_12.c
+        fonts/font_dvs_ascii_14.c
+        fonts/font_dvs_ascii_16.c
+        fonts/font_dvs_digits_20.c
+        fonts/font_dvs_digits_24.c
+        fonts/font_dvsb_ascii_18.c
+        fonts/font_dvsb_caps_16.c
+        fonts/font_symbols_14.c
+        fonts/font_symbols_32.c
+        fonts/FontAwesomeBrands24.c
+        fonts/FontAwesomeSolid24.c
+        fonts/FontAwesomeRegular24.c
+        images/image_utility_watchface_bg.c
+        images/image_infograph_watchface_bg.c
+)
+
+target_include_directories(frontend
+    PUBLIC
+        .
+        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/libs
+)
