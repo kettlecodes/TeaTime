@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(teatime VERSION 1.0.0 LANGUAGES C CXX)
+project(teatime VERSION 1.0.0 LANGUAGES C CXX ASM)
 
 
 # ------------------------------------------------------------------------------------------------
@@ -21,22 +21,26 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # ------------------------------------------------------------------------------------------------
 
 
-# build the libraries (LVGL, LittleFS and qcbor)
+# get the git commit hash
+set(PROJECT_GIT_COMMIT_HASH "")
+execute_process(
+    COMMAND git rev-parse --short HEAD
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE PROJECT_GIT_COMMIT_HASH
+    RESULT_VARIABLE PROJECT_GIT_COMMIT_HASH_SUCCESS
+)
+string(STRIP
+    "${PROJECT_GIT_COMMIT_HASH}"
+    PROJECT_GIT_COMMIT_HASH
+)
+message("Git hash: ${PROJECT_GIT_COMMIT_HASH}")
 
-add_library(lvgl STATIC "")
-add_subdirectory(libs)
-
-
-# build the frontend
-
-add_library(frontend STATIC "")
-add_subdirectory(frontend)
-
-
-# build the settings library
-
-add_library(settings STATIC "")
-add_subdirectory(settings)
+# create the Version.h include file
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/Version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Version.h
+)
+message("Created Version.h in ${CMAKE_CURRENT_BINARY_DIR}")
 
 
 # ------------------------------------------------------------------------------------------------
@@ -47,17 +51,35 @@ add_subdirectory(settings)
 
 if (VARIANT STREQUAL "Firmware")
 
+    add_subdirectory(firmware)
+
 elseif (VARIANT STREQUAL "Simulator")
 
     # add the SDL2 package
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(SDL2 REQUIRED IMPORTED_TARGET sdl2)
 
-    # build the backend mockup
+    # add the submodule libraries (LVGL, LittleFS and qcbor)
+    add_library(lvgl STATIC "")
+    add_subdirectory(libs)
+    target_compile_options(lvgl
+        PUBLIC
+            "-DBUILD_SIMULATOR"
+    )
+
+    # add the frontend
+    add_library(frontend STATIC "")
+    add_subdirectory(frontend)
+
+    # add the settings library
+    add_library(settings STATIC "")
+    add_subdirectory(settings)
+
+    # add the backend mockup
     add_library(backend-mockup STATIC "")
     add_subdirectory(simulator/backend-mockup)
 
-    # build the simulator executable
+    # add the simulator executable
     add_executable(tt-sim "")
     target_sources(tt-sim
         PRIVATE

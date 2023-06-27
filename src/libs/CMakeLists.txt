@@ -92,10 +92,4 @@ target_include_directories(lvgl
         .
         ..
 )
-if (VARIANT STREQUAL "Simulator")
-    target_compile_options(lvgl
-        PUBLIC
-            "-DBUILD_SIMULATOR"
-    )
-endif()
 

@@ -1,6 +1,7 @@
 #include "SystemInfoScreen.h"
 
 #include <cstdint>
+#include <cstdio>
 #include <lvgl/lvgl.h>
 
 #include "interfaces/BackendInterface.h"
