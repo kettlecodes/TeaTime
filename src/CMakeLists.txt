@@ -99,10 +99,10 @@ elseif (VARIANT STREQUAL "Simulator")
     target_link_libraries(tt-sim
         PUBLIC
             PkgConfig::SDL2
-            lvgl
             frontend
             settings
             backend-mockup
+            lvgl
     )
 
 else()

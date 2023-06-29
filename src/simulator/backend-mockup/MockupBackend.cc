@@ -6,6 +6,7 @@
 #include "MockupDisplay.h"
 #include "MockupFirmwareValidation.h"
 #include "MockupMotion.h"
+#include "MockupWatchdog.h"
 
 
 MockupBackend::MockupBackend() {
@@ -15,6 +16,7 @@ MockupBackend::MockupBackend() {
     _display = new MockupDisplay();
     _firmwareValidation = new MockupFirmwareValidation();
     _motion = new MockupMotion();
+    _watchdog = new MockupWatchdog();
 }
 
 
@@ -25,4 +27,5 @@ MockupBackend::~MockupBackend() {
     delete _display;
     delete _firmwareValidation;
     delete _motion;
+    delete _watchdog;
 }

@@ -7,6 +7,7 @@ target_sources(backend-mockup
         MockupDisplay.cc
         MockupFirmwareValidation.cc
         MockupMotion.cc
+        MockupWatchdog.cc
 )
 
 target_include_directories(backend-mockup

@@ -16,6 +16,7 @@ public:
     DisplayInterface *display() override { return _display; }
     FirmwareValidationInterface *firmwareValidation() override { return _firmwareValidation; }
     MotionInterface *motion() override { return _motion; }
+    WatchdogInterface *watchdog() override { return _watchdog; }
 
 private:
 
@@ -25,6 +26,7 @@ private:
     DisplayInterface *_display;
     FirmwareValidationInterface *_firmwareValidation;
     MotionInterface *_motion;
+    WatchdogInterface *_watchdog;
 };
 
 #endif // MOCKUPBACKEND_H
