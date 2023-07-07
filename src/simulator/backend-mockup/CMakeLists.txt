@@ -5,6 +5,7 @@ target_sources(backend-mockup
         MockupBluetooth.cc
         MockupDateTime.cc
         MockupDisplay.cc
+        MockupFileSystem.cc
         MockupFirmwareValidation.cc
         MockupMotion.cc
         MockupWatchdog.cc
